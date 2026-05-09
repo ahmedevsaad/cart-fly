@@ -15,17 +15,37 @@ class AppBackground extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          if (solid == null)
-            Positioned.fill(
-              child: SvgPicture.asset(
-                'assets/pattern/airplane_box.svg',
-                fit: BoxFit.none,
-                repeat: ImageRepeat.repeat,
-              ),
-            ),
+          if (solid == null) const _PatternTile(),
           child,
         ],
       ),
+    );
+  }
+}
+
+class _PatternTile extends StatelessWidget {
+  const _PatternTile();
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, c) {
+        const tile = 240.0;
+        final cols = (c.maxWidth / tile).ceil();
+        final rows = (c.maxHeight / tile).ceil();
+        return IgnorePointer(
+          child: Wrap(
+            children: List.generate(
+              cols * rows,
+              (_) => SizedBox(
+                width: tile,
+                height: tile,
+                child: SvgPicture.asset('assets/pattern/airplane_box.svg'),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
