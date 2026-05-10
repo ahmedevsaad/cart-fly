@@ -32,6 +32,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/dev/
+/.playwright-mcp/
 
 # Symbolication related
 app.*.symbols

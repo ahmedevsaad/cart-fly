@@ -9,6 +9,7 @@ import '../../router/routes.dart';
 import '../../theme/colors.dart';
 import '../../widgets/app_background.dart';
 import '../../widgets/app_logo.dart';
+import '../../widgets/flag_icon.dart';
 
 class LockersWorldScreen extends StatelessWidget {
   const LockersWorldScreen({super.key});
@@ -102,9 +103,16 @@ class LockersWorldScreen extends StatelessWidget {
                       onPressed: () =>
                           context.push('${Routes.lockers}/${c.code}'),
                       style: OutlinedButton.styleFrom(
-                        minimumSize: const Size(120, 40),
+                        minimumSize: const Size(140, 40),
                       ),
-                      child: Text(c.displayName),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FlagIcon(code: c.code, size: 22),
+                          const SizedBox(width: 8),
+                          Text(c.displayName),
+                        ],
+                      ),
                     ),
                 ],
               ),

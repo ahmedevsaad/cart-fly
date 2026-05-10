@@ -8,6 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../../theme/colors.dart';
 import '../../widgets/app_background.dart';
 import '../../widgets/app_logo.dart';
+import '../../widgets/flag_icon.dart';
 
 class CountryLockersScreen extends StatefulWidget {
   const CountryLockersScreen({super.key, required this.code});
@@ -59,9 +60,16 @@ class _CountryLockersScreenState extends State<CountryLockersScreen> {
             ]),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Text(
-                c.displayName,
-                style: Theme.of(context).textTheme.headlineLarge,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FlagIcon(code: c.code, size: 36),
+                  const SizedBox(width: 10),
+                  Text(
+                    c.displayName,
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                ],
               ),
             ),
             SizedBox(

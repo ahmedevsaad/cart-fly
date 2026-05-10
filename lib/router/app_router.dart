@@ -16,11 +16,14 @@ import '../features/warehouses/warehouses_screen.dart';
 import '../features/welcome/welcome_screen.dart';
 import 'routes.dart';
 
+const _bypassAuth = bool.fromEnvironment('DEBUG_BYPASS_AUTH');
+
 GoRouter buildRouter(AuthProvider auth) {
   return GoRouter(
     initialLocation: Routes.splash,
     refreshListenable: auth,
     redirect: (ctx, state) {
+      if (_bypassAuth) return null;
       final s = auth.state.status;
       final loc = state.matchedLocation;
       const publicRoutes = {

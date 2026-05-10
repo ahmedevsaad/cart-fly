@@ -3,7 +3,7 @@ import 'models/locker.dart';
 
 const _eg = CountryLockers(
   code: 'eg',
-  displayName: '🇪🇬 Egypt',
+  displayName: 'Egypt',
   center: LatLng(27.0, 30.0),
   zoom: 5.5,
   cities: [
@@ -58,7 +58,7 @@ const _eg = CountryLockers(
 
 const _sa = CountryLockers(
   code: 'sa',
-  displayName: '🇸🇦 Saudi Arabia',
+  displayName: 'Saudi Arabia',
   center: LatLng(24.0, 45.0),
   zoom: 5.0,
   cities: [
@@ -97,7 +97,7 @@ const _sa = CountryLockers(
 
 const _ae = CountryLockers(
   code: 'ae',
-  displayName: '🇦🇪 UAE',
+  displayName: 'UAE',
   center: LatLng(24.4, 54.5),
   zoom: 7.0,
   cities: [
@@ -145,7 +145,7 @@ const _ae = CountryLockers(
 
 const _us = CountryLockers(
   code: 'us',
-  displayName: '🇺🇸 USA',
+  displayName: 'USA',
   center: LatLng(39.5, -98.0),
   zoom: 3.5,
   cities: [
@@ -172,7 +172,7 @@ const _us = CountryLockers(
 
 const _cn = CountryLockers(
   code: 'cn',
-  displayName: '🇨🇳 China',
+  displayName: 'China',
   center: LatLng(34.0, 105.0),
   zoom: 4.0,
   cities: [
