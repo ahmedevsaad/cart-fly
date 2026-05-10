@@ -44,16 +44,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
     setState(() => _busy = true);
-    final ok = await context.read<AuthProvider>().register(
-          name: _name.text.trim(),
-          phone: _phone.text.trim(),
-          email: _email.text.trim(),
-          country: _country.text.trim(),
-          currency: _currency.text.trim(),
-          password: _pwd.text,
-        );
-    if (mounted) setState(() => _busy = false);
-    if (ok && mounted) context.go(Routes.otp);
+    final auth = context.read<AuthProvider>();
+    final ok = await auth.register(
+      name: _name.text.trim(),
+      phone: _phone.text.trim(),
+      email: _email.text.trim(),
+      country: _country.text.trim(),
+      currency: _currency.text.trim(),
+      password: _pwd.text,
+    );
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(_friendly(auth.errorKey))),
+      );
+    }
+    // On success router redirect routes us to /otp via pendingOtp state.
+  }
+
+  String _friendly(String? key) {
+    switch (key) {
+      case 'errorAuth_email-already-in-use':
+        return 'Email already in use.';
+      case 'errorAuth_weak-password':
+        return 'Password is too weak.';
+      case 'errorAuth_invalid-email':
+        return 'Invalid email.';
+      case 'errorAuth_network-request-failed':
+        return 'Network error. Check connection.';
+      default:
+        return 'Could not create account${key == null ? '' : ' ($key)'}.';
+    }
   }
 
   @override

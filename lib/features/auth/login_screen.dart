@@ -31,11 +31,36 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _submit() async {
     if (!_form.currentState!.validate()) return;
     setState(() => _busy = true);
-    final ok = await context
-        .read<AuthProvider>()
-        .login(_email.text.trim(), _pwd.text);
-    if (mounted) setState(() => _busy = false);
-    if (ok && mounted) context.go(Routes.welcome);
+    final auth = context.read<AuthProvider>();
+    final ok = await auth.login(_email.text.trim(), _pwd.text);
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(_friendly(auth.errorKey))),
+      );
+    }
+    // On success the router redirect handles navigation based on auth state
+    // (verified -> /home, unverified -> /otp).
+  }
+
+  String _friendly(String? key) {
+    switch (key) {
+      case 'errorAuth_invalid-credential':
+      case 'errorAuth_wrong-password':
+      case 'errorAuth_user-not-found':
+        return 'Wrong email or password.';
+      case 'errorAuth_invalid-email':
+        return 'Invalid email.';
+      case 'errorAuth_user-disabled':
+        return 'This account is disabled.';
+      case 'errorAuth_too-many-requests':
+        return 'Too many attempts. Try again later.';
+      case 'errorAuth_network-request-failed':
+        return 'Network error. Check connection.';
+      default:
+        return 'Login failed${key == null ? '' : ' ($key)'}.';
+    }
   }
 
   @override
